@@ -1,0 +1,53 @@
+month, day = map(int, input().split())
+
+if day > 1 and day < 28:
+    previous_day, previous_month = day-1, month
+    next_day, next_month = day+1, month
+
+elif day == 1:
+    next_day, next_month = day+1, month
+    previous_day, previous_month = 28, month-1
+    if previous_month == 0:
+        previous_month = 12
+    if (previous_month == 1 or 
+        previous_month == 3 or 
+        previous_month == 5 or 
+        previous_month == 7 or 
+        previous_month == 8 or 
+        previous_month == 10 or 
+        previous_month == 12):
+        previous_day = 31
+    elif previous_month != 2:
+        previous_day = 30
+
+else:
+    previous_day, previous_month = day-1, month
+    if month == 2:
+        next_month = month+1
+        next_day = 1
+
+    elif (month == 1 or 
+          month == 3 or 
+          month == 5 or 
+          month == 7 or 
+          month == 8 or 
+          month == 10 or 
+          month == 12):
+        if day < 31:
+            next_month = month
+            next_day = day+1
+        else:
+            next_month = (month+1)%13
+            if next_month == 0:
+                next_month+=1
+            next_day = 1
+    else:
+        if day < 30:
+            next_month = month
+            next_day = day+1
+        else:
+            next_month = month+1
+            next_day = 1
+
+print(f"{0 if previous_month<10 else ''}{previous_month}.{0 if previous_day<10 else ''}{previous_day} ", end = "")
+print(f"{0 if next_month<10 else ''}{next_month}.{0 if next_day<10 else ''}{next_day}")
